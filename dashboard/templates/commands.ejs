@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="../partials/header.ejs">
+  <link rel="shortcut icon" href="https://i.imgur.com/phunlbC.gif" style="border-radius: 80px;" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<title>Vapor - Commands</title>
+</head>
+<body>
+    <%- include("partials/header", { bot, user, path, }) %>
+    <center>
+    <h4 style="color: rgb(255, 255, 255);"><strong>Total bot commands: <%= bot.commands.size %></strong></h4>
+    </center>
+    <div class="container">
+<% bot.commands.map(cmd => { %>
+        <% let alli = "No aliases for that command" %>
+        <% if(cmd.help.aliases.length > 0){ %>
+            <% alli = cmd.help.aliases %>
+            <% } %>
+
+<div class="card commands">
+     <h6 style="color: white;"><strong>Commands:</strong> <%= cmd.help.name %></h6>
+     <h6 class="content"><strong>Example:</strong><br> <code style="color: rgb(255, 255, 255);"><%= cmd.help.example.split("``").join("") %></code><br><strong> Category: </strong><%= cmd.help.category %><br><strong> Aliases: </strong><%= alli %><br> <strong> CoolDown: </strong><%= cmd.limits.cooldown / 1000 %>s per <%= cmd.limits.rateLimit %> messages<br><strong> Description: </strong><%= cmd.help.description %>,</h6>
+</div>
+    <% }) %>
+</div>
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+    <%- include("partials/footer") %>
+</body>
+</html>

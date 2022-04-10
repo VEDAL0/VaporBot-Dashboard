@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="shortcut icon" href="https://i.imgur.com/phunlbC.gif" style="border-radius: 80px;" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<title>Vapor - Profile</title>
+</head>
+<%- include("partials/header", { bot, user, path, }) %>
+<body>
+  <center>
+    <br>
+    <% if (alert) { %>
+      <div style="background-color: rgb(151, 255, 177);  border: solid; border-color: black; width: 800px; height: 40px; border-radius: 20px; padding: 6px">
+        <b style="color: rgb(70, 150, 70);"><%= alert %></b>
+      </div>
+    <% }else if(error){ %>
+      <div style="background-color: rgb(255, 87, 87);  border: solid; border-color: black; width: 800px; height: 40px; border-radius: 20px; padding: 6px">
+        <b style="color: white;"><%= error %></b>
+      </div>
+      <% } %>
+    </center>
+<br>
+<br>
+<% let avatar = "" %>
+<%  avatar = !user.avatar ? "https://maxcdn.icons8.com/Share/icon/Logos/discord_logo1600.png" : `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=256` %>
+<center>
+    <img src="<%= avatar %>" style="border-radius: 50px;" width="120px" height="120px" >
+    <br>
+    <b style="color: white; font-size: 50px;"><%= user.username %>'s Profile</b>
+    <form style="margin-top: 1em;" method="POST"> <!-- method="post" tiggers a POST request to the same url with the body of the form control inputs -->
+      <p>Please type <b>delete</b> erase the data we have collected</p>
+      <input class="w3-input w3-border"  style="border-radius: 5px; width:300px" maxlength="50" type="text" name="captcha"  value="" placeholder="delete">
+     <br>
+      <button style="width:50px; color: rgb(230, 123, 123);" name="requestdelete" value="Don't try change the id neeba"><i class="fa fa-trash"></i> </button>
+    </form>
+    <hr style="margin-left: 300px; margin-right: 300px;">
+</center>
+<div class="left">
+  <% if(profile){ %>
+    <% if(!profile.bio){ %>
+      <h2>Bio: I am a very mysterious person!</h2>
+        <% }else if(profile.bio){ %>
+          <h2>Bio: <%= profile.bio %></h2>
+          <% } %>
+        <% }else{ %>
+          <h2>Bio: I am a very mysterious person!</h2>
+          <% } %>
+    <h2>ID: <%= user.id %></h2>
+    <h2>Global Infractions: <%= cases.length %></h2>
+    <h3></h3>
+</div>
+<center>
+  <br>
+<button style="width:150px;" class="button" onclick="opennick()">Change Bio</button>
+<br>
+<br>
+<div class="card popout" style="display: none; border-radius: 2px; height: 280px;" id="nicknameopen">
+  <img src="https://cdn3.iconfinder.com/data/icons/hr-and-recruitment/100/biography_cv_job_recruitment_candidate_hr-512.png" style="width: 70px;">
+<br>
+<br>
+<form style="margin-top: 1em;" method="POST"> <!-- method="post" tiggers a POST request to the same url with the body of the form control inputs -->
+  <% if(profile){ %>
+    <% if(!profile.bio){ %>
+      <input class="input" style="border-radius: 5px;" maxlength="50" type="text" name="changebio"  value="I am a very mysterious person!" placeholder="i.e I am jone i love programming!"><br><br>
+        <% }else if(profile.bio){ %>
+          <input class="input" style="border-radius: 5px;" maxlength="50" type="text" name="changebio"  value="<%= profile.bio %>" placeholder="i.e I am jone i love programming!"><br><br>
+          <% } %>
+        <% }else{ %>
+          <input class="input" style="border-radius: 5px;" maxlength="50" type="text" name="changebio"  value="I am a very mysterious person!" placeholder="i.e I am jone i love programming!"><br><br>
+          <% } %>
+  <button style="width:150px;" class="button" onclick="opennick()">Update</button>
+  </form>
+  <button class="vote close" onclick="closenick()">Close</button>
+</div>
+<br>
+<br>
+</center>
+<hr style="margin-left: 200px; margin-right: 200px;">
+<div class="container">
+    <% if(cases.length === 0){ %>
+      <img src="https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-256.png" style="width: 70px;">
+      <p style="font-size: 20px;">You are safe no infractions!</p><br>
+      <% }else{ %>
+        <% for (i = 0; i < cases.length; i++) { %>
+          <% bot.users.fetch(cases[i].userID) %>
+            <% } %>
+    <% for (i = 0; i < cases.length; i++) { %>
+            <% let reason = ''; %>
+            <% let time = ''; %>
+            <% let member = ''; %>
+            <% let moderator = ""; %>
+            <% let server = ""; %>
+            <% if(bot.guilds.cache.get(cases[i].serverID)){ %>
+                <% server = bot.guilds.cache.get(cases[i].serverID).name %>
+                <% }else{ %>
+                    <% server = "Can't get the guild!" %>
+                <% } %>
+            <% if(cases[i].reason == ''){ %>
+                <% reason = 'No reason Provided' %>
+                <% }else{ %>
+                <% reason = cases[i].reason %>
+                <% } %>
+            <% if(cases[i].time == undefined){ %>
+                <% time = 'No time' %> 
+                <% }else{ %>
+                    <% time = cases[i].time %>
+                <% } %>
+                <% if(bot.users.cache.get(cases[i].Moderator)){ %>
+                    <% moderator = bot.users.cache.get(cases[i].Moderator).tag %>
+                    <% }else{ %>
+                        <% moderator = "Wasn't defined at this time" %>
+                    <% } %>
+                    <% if(bot.users.cache.get(cases[i].userID)){ %>
+                    <% member = bot.users.cache.get(cases[i].userID).tag %>
+                    <% }else{ %>
+                        <% member = "Error occured" %>
+                    <% } %>
+        <div class="card bug">
+          <p><strong style="color: rgb(255, 255, 255); font-size: 30px;">Case number </strong>#<%= cases[i].case %><br>_____________<br><code>Action:</code> <strong><%= cases[i].action %></strong><br><code>Allegation:</code> <strong><%= member %></strong><br><code>Moderator: </code><strong><%= moderator %></strong><br><code>Time: </code><strong><%= time %></strong><br>Server: <strong><%= server %></strong><br><code style="font-size: 20px; color: gray;">_____________<br></code><strong><%= reason %></strong></code></p>
+        </div>
+          <% } %>
+      <% } %>
+    </div>
+    <script>
+      // Set the date we're counting down to
+      function opennick() {
+        document.getElementById("nicknameopen").style.animation = "fadeIn 0.4s";
+    document.getElementById("nicknameopen").style.display = "block";
+  }
+  function closenick() {
+    document.getElementById("nicknameopen").style.animation = "fadeIn 0.4s";
+    document.getElementById("nicknameopen").style = "display: none;";
+  }
+    </script>
+</body>
+</html>
+<br><br><br><br><br><br>
+<%- include("partials/footer") %>

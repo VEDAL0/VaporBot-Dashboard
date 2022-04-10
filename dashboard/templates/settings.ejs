@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="shortcut icon" href="https://i.imgur.com/phunlbC.gif" style="border-radius: 80px;" type="image/x-icon">
+<title>Vapor - <%= guild.name %></title>
+</head>
+<body>
+<%- include("partials/header", { bot, user, path }) %>
+
+<center>
+  <% if (alert) { %>
+    <div style="background-color: rgb(151, 255, 177);  border: solid; border-color: black; width: 800px; height: 40px; border-radius: 20px; padding: 6px">
+      <b style="color: rgb(70, 150, 70);"><%= alert %></b>
+    </div>
+  <% } %>
+    <br>
+  </center>
+<% iconurl = "";%>
+<% if(!guild.icon) { %>
+ <% iconurl = "https://maxcdn.icons8.com/Share/icon/Logos/discord_logo1600.png" %>
+ <% }else{ %>
+   <% iconurl =  `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png?size=256` %>
+   <% } %>
+     
+<center>
+<img id="guild-icon" style="border-radius: 35%;" width="180px" height="180px" src="<%= iconurl %>?size=256">
+<h1><strong><%= guild.name %></strong></h1>
+<% let muterole = settings.mutedrole %>
+<% if(muterole == "String"){ %>
+  <%  muterole = "No mute role set for this server" %>
+  <% }else{ %>
+    <% if(!guild.roles.cache.get(settings.mutedrole)){ %>
+    <% muterole = "No mute role set for this server" %>
+    <% }else{ %>
+      <% muterole = guild.roles.cache.get(settings.mutedrole).name %>
+    <% } %>
+    <% } %>
+    <% let autorole = settings.autorole %>
+    <% if(autorole == "String"){ %>
+      <%  autorole = "No auto role set for this server" %>
+      <% }else{ %>
+        <% if(!guild.roles.cache.get(settings.autorole)){ %>
+        <% autorole = "No auto role set for this server" %>
+        <% }else{ %>
+          <% autorole = guild.roles.cache.get(settings.autorole).name %>
+        <% } %>
+        <% } %>
+        <% let botautorole = settings.autorole %>
+   <% if(botautorole == "String"){ %>
+          <%  botautorole = "Nobot  auto role set for this server" %>
+          <% }else{ %>
+            <% if(!guild.roles.cache.get(settings.botautorole)){ %>
+            <% botautorole = "No bot auto role set for this server" %>
+            <% }else{ %>
+              <% botautorole = guild.roles.cache.get(settings.botautorole).name %>
+            <% } %>
+            <% } %>
+<% let antispam = settings.antispam %>
+    <% if(antispam == "0"){ %>
+      <%  antispam = "Disabled" %>
+      <% }else if(antispam == "1"){ %>
+        <% antispam =  "Enabled" %>
+        <% }else{ %>
+          <%  antispam = "Disabled" %>
+          <% } %>
+</center>
+<div class="container">
+<div class="card stats2">
+  <p><strong style="font-size: 30px;"><i class="fa fa-users"></i> Members</strong></p>
+<p style="color: rgb(197, 197, 197);"><%= guild.memberCount %></p>
+</div>
+<div class="card stats2">
+  <p><strong style="font-size: 30px;"><i class="fa fa-smile-o"></i> Emojis</strong></p>
+<p style="color: rgb(197, 197, 197);"><%= guild.emojis.cache.size %></p>
+</div>
+<div class="card stats2">
+  <p><strong style="font-size: 30px;"><i class="fa fa-pie-chart"></i> Roles</strong></p>
+<p style="color: rgb(197, 197, 197);"><%= guild.roles.cache.size %></p>
+</div>
+<div class="card stats2">
+  <p><strong style="font-size: 30px;"><i class="fa fa-server"></i> Channels</strong></p>
+<p style="color: rgb(197, 197, 197);"><%= guild.channels.cache.size %></p>
+</div>
+<div class="card stats2">
+  <p><strong style="font-size: 30px;"><i class="fa fa-meh-o"></i> Muted Role</strong></p>
+<p style="color: rgb(197, 197, 197);"><%= muterole %></p>
+</div>
+<div class="card stats2">
+  <p><strong style="font-size: 30px;"><i class="fa fa-user-plus"></i> Auto Role</strong></p>
+<p style="color: rgb(197, 197, 197);"><%= autorole %></p>
+</div>
+<div class="card stats2">
+  <p><strong style="font-size: 30px;"><i class="fa fa-plug"></i> Bot Auto Role</strong></p>
+<p style="color: rgb(197, 197, 197);"><%= botautorole %></p>
+</div>
+<div class="card stats2">
+  <p><strong style="font-size: 30px;"><i class="fa fa-wrench"></i> Prefix</strong></p>
+<p style="color: rgb(197, 197, 197);"><%= settings.prefix %></p>
+</div>
+<div class="card stats2">
+  <p><strong style="font-size: 30px;"><i class="fa fa-warning"></i> Server Infractions</strong></p>
+<p style="color: rgb(197, 197, 197);"><%= infractions.length %></p>
+</div>
+</div>
+
+<center>
+<div class="card stats">
+  <h1><i class="fa fa-tasks"></i> Sections!</h1>
+  <br>
+<a class="button" style="color: white; width: 1px;"  href="/dashboard/<%= guild.id %>/others"><i class="fa fa-wrench"></i> Other Configurations</a>
+<a class="button" style="color: white; width: 1px;"  href="/dashboard/<%= guild.id %>/roles"><i class="fa fa-user-plus"></i> Configure Roles</a> 
+<a class="button" style="color: white; width: 1px;"  href="/dashboard/<%= guild.id %>/automod"><i class="fa fa-shield"></i> Configure Automod</a>
+
+<br>
+<br>
+<br>
+
+<a class="button" style="color: white; width: 1px;"  href="/dashboard/<%= guild.id %>/actions"><i class="fa fa-exclamation-triangle"></i> Server Infractions</a>
+<a class="button" style="color: white; width: 1px;"  href="/dashboard/<%= guild.id %>/logs"><i class="fa fa-clone"></i> Configure Logs</a>
+<a class="button" style="color: white; width: 1px;"  href="/dashboard/<%= guild.id %>/welcome"><i class="fa fa-signing"></i> Configure Welcome</a>
+<br>
+<br>
+<p>If you would like the bot kicked from your server press the button below. There's no going back!</p>
+<form style="margin-top: 1em;" method="POST"> <!-- method="post" tiggers a POST request to the same url with the body of the form control inputs -->
+  <button style="color: rgb(133, 23, 23); width: 200px;" name="leaveserver" value="<%= guild.id %>" >Kick Bot</button>  
+  </form>
+</div>
+</center>
+<br>
+<br>
+<%- include("partials/footer") %>
+</body>
+</html>

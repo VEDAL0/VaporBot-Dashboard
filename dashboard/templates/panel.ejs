@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="https://i.imgur.com/phunlbC.gif" style="border-radius: 80px;" type="image/x-icon">
+  <link rel="stylesheet" href="../partials/header.ejs">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <title>Vapor - Panel</title>
+</head>
+<body>
+<%- include("partials/header", { bot, user, path, }) %>
+<center>
+  <br>
+  <% if (alert) { %>
+    <div style="background-color: rgb(151, 255, 177);  border: solid; border-color: black; width: 800px; height: 40px; border-radius: 20px; padding: 6px">
+      <b style="color: rgb(70, 150, 70);"><%= alert %></b>
+    </div>
+  <% }else if(error){ %>
+    <div style="background-color: rgb(255, 87, 87);  border: solid; border-color: black; width: 800px; height: 40px; border-radius: 20px; padding: 6px">
+      <b style="color: white;"><%= error %></b>
+    </div>
+    <% } %>
+    <br>
+  </center>
+<center>
+<br>
+<h1 style="color:white;"><strong>Welcome <%= user.username %> to your panel!</strong></h1>
+<br>
+<br>
+<form style="margin-top: 1em;" method="POST"> <!-- method="post" tiggers a POST request to the same url with the body of the form control inputs -->
+<h4 style="color: white;"><strong>Reload command!</strong></h4>
+<br>
+<input class="w3-input w3-border" maxlength="20" type="text" name="commandreload" value="" style="width:300px" placeholder="i.e ping"><br><br>
+<br>
+<button style="width:200px" class="button" type="submit"><i class="fa fa-spinner"></i> Reload Command</button>
+<br>
+<br>
+<hr style="margin-left: 250px; margin-right: 250px;">
+<br>
+<br>
+</form>
+<form style="margin-top: 1em;" method="POST"> <!-- method="post" tiggers a POST request to the same url with the body of the form control inputs -->
+<div class="container">
+<% if(reportbug.length === 0){ %>
+  <b style="font-size: 30px; color:white;"><i class="fa fa-wrench"></i> No bug reports</b><br>
+  <% }else{ %>
+<% for (i = 0; i < reportbug.length; i++) { %>
+    <div class="card bug">
+      <p><strong style="color: rgb(255, 255, 255); font-size: 30px;">New bug report</strong><br>Bug ID: <%= Math.ceil(Math.random() * 50) + reportbug[i].userID + Math.ceil(Math.random() * 50) %><br>_____________<br><code style="font-size: 20px;">Bug:</code><br><strong style="color: rgb(0, 0, 0);  word-break: break-all;"><%= reportbug[i].bug %> .</strong></p>
+      <button style="width:170px" name="acceptbug" value="<%= reportbug[i].userID %>" type="submit">Accept</button>
+      </div>
+  <% } %>
+  <% } %>
+</div>
+</form>
+</center>
+<br><br><br><br><br><br><br><br><br><br><br>
+<%- include("partials/footer") %>
+</body>
+</html>

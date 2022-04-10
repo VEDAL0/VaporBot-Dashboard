@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="shortcut icon" href="https://i.imgur.com/phunlbC.gif" style="border-radius: 80px;" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<title>Vapor - Privacy Policy</title>
+</head>
+<body>
+    <%- include("partials/header", { bot, user, path, }) %>
+    <div class = "left">
+<h1><strong>Data</strong></h1>
+<p>We are using mongodb to store data , but our bot is moderation so there's no data we need to store about user , except infractions and profile settings bio.</p>
+<h1><strong>Request to delete</strong></h1>
+<p>We have updated site now if you want delete your data you can go throw the profile and click the button!, but before that you need to read ToS (scroll down)</p>
+<h1><strong>For how long we store data</strong></h1>
+<p>we store data of the user until he requests to me or our team to reset, then he won't be in the database again till he uses our bot again, or we delete his data if he left the server so he won't be having data in the server he left but he will have in other servers.</p>
+<h1><strong>What data we collect when you auth with website</strong></h1>
+<p>we collect just what servers you are in & avatar, username,id but once you sign out we delete it!</p>
+</div>
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<%- include("partials/footer") %>
+</body>
+</html>

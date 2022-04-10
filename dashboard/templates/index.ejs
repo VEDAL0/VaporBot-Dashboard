@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="shortcut icon" href="https://i.imgur.com/phunlbC.gif" style="border-radius: 80px;" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Vapor - Home</title>
+</head>
+<body>
+<%- include("partials/header", { bot, user, path, }) %>
+<center>
+  <br>
+  <img src="https://i.imgur.com/phunlbC.gif" style="width: 260px; height: 260px;">
+  <br>
+  <br>
+  <br>
+<h1><i class="fa fa-smile-o"></i> Welcome to Vapor!</h1>
+<h5 style="color: rgb(94, 94, 94);"><i class="fa fa-certificate"></i> Vapor Bot is moderating a total of <b><%= bot.guilds.cache.size %></b> servers with <b><%= bot.users.cache.size %></b> users!</h5>
+</center>
+<br>
+<br>
+<center>
+  <a style="width:350px;" style="margin-left: 50px" class="button" type="button" target="_blank" href="https://discord.com/oauth2/authorize?client_id=<%= bot.user.id %>&permissions=268438576&scope=bot"><i class="fa fa-tachometer"></i> Get Started</a>
+  <br>
+  <br>
+  <br>
+  <script>
+    // Set the date we're counting down to
+    function openVote() {
+  document.getElementById("myvote").style.display = "block";
+}
+function closeVote() {
+  document.getElementById("myvote").style = "display: none;";
+}
+  </script>
+</center>
+<br>
+<br>
+<div class="left">
+<p><center><strong style="font-size: 40px; margin-right: 40px;"><i class="fa fa-newspaper-o"></i> Features</strong></center></p>
+</div>
+<div class="container">
+    <div class="card feautres">
+      <div class="container">
+      <img src="https://media.discordapp.net/attachments/908080708021522473/929499043636330516/automod.png" style="width: 70px; height: 60px;">
+      <p><strong style="font-size: 30px;"> Auto Mod</strong></p>
+    </div>
+      <p style="color: rgb(197, 197, 197);">An automatic system to help remove unsafe spam links and invites.</p>
+    </div>
+    <div class="card feautres">
+      <div class="container">
+      <img src="https://media.discordapp.net/attachments/908080708021522473/929501101437354034/dashboard.png" style="width: 70px; height: 60px;">
+      <p><strong style="font-size: 30px;"> Dashboard</strong></p>
+    </div>
+      <p style="color: rgb(197, 197, 197);">A built-in responsive web dashboard to configure our bot to your desire.</p>
+    </div>
+    <div class="card feautres">
+      <div class="container">
+      <img src="https://media.discordapp.net/attachments/908080708021522473/929501203002433547/warning.png" style="width: 70px; height: 60px;">
+      <p><strong style="font-size: 30px;"> Moderation system</strong></p>
+    </div>
+      <p style="color: rgb(197, 197, 197);">Configureable mutes, warnings, kicks & bans for those users who try to be a nuisance.</p>
+    </div>
+    <div class="card feautres">
+      <div class="container">
+      <img src="https://media.discordapp.net/attachments/908080708021522473/929501154717597766/lockdown.png" style="width: 70px; height: 60px;">
+      <p><strong style="font-size: 30px;"> Lockdown</strong></p>
+    </div>
+      <p style="color: rgb(197, 197, 197);">Is your staff struggling at keeping up with messages? Lock it down & punish rule breakers.</p>
+    </div>
+    <div class="card feautres">
+      <div class="container">
+      <img src="https://media.discordapp.net/attachments/908080708021522473/929501068331724840/logging.png" style="width: 70px; height: 60px;">
+      <p><strong style="font-size: 30px;"> Punishment Logs</strong></p>
+    </div>
+      <p style="color: rgb(197, 197, 197);">Check if a user has been punished before on your server and what for.</p>
+    </div>
+    <div class="card feautres">
+      <div class="container">
+      <img src="https://media.discordapp.net/attachments/908080708021522473/929501179484983296/uptime.png" style="width: 70px; height: 60px;">
+      <p><strong style="font-size: 30px;"> Uptime</strong></p>
+    </div>
+      <p style="color: rgb(197, 197, 197);">Check when the last time our bot was offline was.</p>
+    </div>
+    <div class="card feautres">
+      <div class="container">
+      <img src="https://media.discordapp.net/attachments/908080708021522473/929501604003065936/welcome_1.png" style="width: 70px; height: 60px;">
+      <p><strong style="font-size: 30px;"> Welcome Messages</strong></p>
+      </div>
+      <p style="color: rgb(197, 197, 197);">Send a greeting to new users who join your server.</p>
+    </div>
+    <div class="card feautres">
+      <div class="container">
+      <img src="https://media.discordapp.net/attachments/908080708021522473/929501933360783390/image_25.png" style="width: 70px; height: 60px;">
+      <p><strong style="font-size: 30px;"> Audit Logs</strong></p>
+     </div>
+      <p style="color: rgb(197, 197, 197);">Find out what people are up to on your server with automatic messages being sent.</p>
+    </div>
+    <div class="card feautres">
+      <div class="container">
+      <img src="https://cdn1.iconfinder.com/data/icons/basic-ui-elements-black-line/512/Basic_Design_5-05-512.png" style="width: 70px; height: 60px;">
+      <p><strong style="font-size: 30px;"> Auto Roles</strong></p>
+    </div>
+      <p style="color: rgb(197, 197, 197);">Give automatic roles to new members when they join the server.</p>
+    </div>
+    <div class="card feautres">
+      <div class="container">
+      <img src="https://static.thenounproject.com/png/565717-200.png" style="width: 60px; height: 60px;">
+      <p><strong style="font-size: 30px;"> Leave Messages</strong></p>
+    </div>
+      <p style="color: rgb(197, 197, 197);">Send out a final goodbye once a user leaves your server.</p>
+    </div>
+    <div class="card feautres">
+      <div class="container">
+      <img src="https://media.discordapp.net/attachments/908080708021522473/929502894426820628/image_26.png" style="width: 70px; height: 60px;">
+     <br>
+     <br>
+      <p><strong style="font-size: 30px;">  Anti Raid</strong></p>
+    </div>
+      <p style="color: rgb(197, 197, 197);">For those times where an annoying user has decided to raid. No one will be able to join!</p>
+    </div>
+  </div>
+<br>
+<%- include("partials/footer") %>
+</body>
+</html>

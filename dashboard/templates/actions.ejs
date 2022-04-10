@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="shortcut icon" href="https://i.imgur.com/phunlbC.gif" style="border-radius: 80px;" type="image/x-icon">
+  <link rel="stylesheet" href="../partials/header.ejs">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <title>Vapor - Server Actions</title>
+</head>
+<body>
+<%- include("partials/header", { bot, user, path }) %>
+<center>
+<br>
+<% if (alert) { %>
+  <div style="background-color: rgb(151, 255, 177);  border: solid; border-color: black; width: 800px; height: 40px; border-radius: 20px; padding: 6px">
+    <b style="color: rgb(70, 150, 70);"><%= alert %></b>
+  </div>
+<% }else if(error){ %>
+  <div style="background-color: rgb(255, 87, 87);  border: solid; border-color: black; width: 800px; height: 40px; border-radius: 20px; padding: 6px">
+    <b style="color: white;"><%= error %></b>
+  </div>
+  <% } %>
+  <br>
+</center>
+<br>
+<a class="button" style="color: white; margin-left: 22px;"  href="/dashboard/<%= guild.id %>">Back to dashboard</a>
+<center>
+<h1><strong>Server Actions!</strong></h1>
+<h4 style="color: white;"><strong>Server cases!</strong></h4>
+</form>
+<form style="margin-top: 1em;" method="POST"> <!-- method="post" tiggers a POST request to the same url with the body of the form control inputs -->
+  <div class="container">
+<% if(cases.length === 0){ %>
+  <img src="https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-256.png" style="width: 70px;">
+  <p style="font-size: 20px;">No infractions for this server</p><br>
+  <% }else{ %>
+    <% for (i = 0; i < cases.length; i++) { %>
+      <% bot.users.fetch(cases[i].userID) %>
+        <% } %>
+<% for (i = 0; i < cases.length; i++) { %>
+        <% let reason = ''; %>
+        <% let time = ''; %>
+        <% let member = ''; %>
+        <% let moderator = ""; %>
+        <% let duration = ""; %>
+        <% if(cases[i].reason == ''){ %>
+            <% reason = 'No reason Provided' %>
+            <% }else{ %>
+            <% reason = cases[i].reason %>
+            <% } %>
+        <% if(cases[i].time == undefined){ %>
+            <% time = 'No time' %> 
+            <% }else{ %>
+                <% time = cases[i].time %>
+            <% } %>
+            <% if(bot.users.cache.get(cases[i].Moderator)){ %>
+                <% moderator = bot.users.cache.get(cases[i].Moderator).tag %>
+                <% }else{ %>
+                    <% moderator = "Wasn't defined at this time" %>
+                <% } %>
+                <% if(bot.users.cache.get(cases[i].userID)){ %>
+                <% member = bot.users.cache.get(cases[i].userID).tag %>
+                <% }else{ %>
+                    <% member = "Error occured" %>
+                <% } %>
+                <% if(cases[i].duration == undefined){ %>
+                  <% duration = 'No duration set for that action!' %> 
+                  <% }else{ %>
+                      <% duration = cases[i].duration %>
+                  <% } %>
+    <div class="card bug">
+      <p><strong style="color: rgb(255, 255, 255); font-size: 30px;">Case number </strong>#<%= cases[i].case %><br>_____________<br><code>Action:</code> <strong><%= cases[i].action %></strong><br><code>Allegation:</code> <strong><%= member %></strong><br><code>Moderator: </code><strong><%= moderator %></strong><br><code>Duration: </code><strong><%= duration %></strong><br><code>Time: </code><strong><%= time %></strong><br><code>Reason: </code><strong><%= reason %></strong></code></p>
+      <button style="width:170px; color: rgb(247, 91, 91);" name="deletecase" value="<%= cases[i].case %>" type="submit">Delete</button>
+    </div>
+      <% } %>
+  <% } %>
+</div>
+</form>
+</center>
+</body>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<%- include("partials/footer") %>
+</html>

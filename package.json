@@ -1,0 +1,42 @@
+{
+  "name": "vapor-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AhmedSabry957/vapor-dev.git"
+  },
+  "keywords": [
+    "discord.js",
+    "dashboard",
+    "Vapor bot"
+  ],
+  "bugs": {
+    "url": "https://github.com/AhmedSabry957/vapor-dev/issues"
+  },
+  "homepage": "https://github.com/AhmedSabry957/vapor-dev#readme",
+  "author": "dexter",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.3.1",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "fs": "0.0.1-security",
+    "install": "^0.13.0",
+    "memorystore": "^1.6.2",
+    "moment": "^2.27.0",
+    "mongoose": "^5.10.5",
+    "ms": "^2.1.2",
+    "node-fetch": "^2.6.1",
+    "parse-ms": "^2.1.0",
+    "passport": "^0.4.1",
+    "passport-discord": "^0.1.4",
+    "path": "^0.12.7"
+  }
+}

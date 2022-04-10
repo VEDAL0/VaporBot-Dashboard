@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="shortcut icon" href="https://i.imgur.com/phunlbC.gif" style="border-radius: 80px;" type="image/x-icon">
+<title>Vapor - <%= guild.name %></title>
+</head>
+<body>
+<%- include("partials/header", { bot, user, path }) %>
+
+<center>
+  <% if (alert) { %>
+    <div style="background-color: rgb(151, 255, 177);  border: solid; border-color: black; width: 800px; height: 40px; border-radius: 20px; padding: 6px">
+      <b style="color: rgb(70, 150, 70);"><%= alert %></b>
+    </div>
+  <% }%>
+  </center>
+<br>
+<br>
+<a class="button" style="color: white; margin-left: 22px;"  href="/dashboard/<%= guild.id %>">Back to dashboard</a>
+<form style="margin-top: 1em;" method="POST"> <!-- method="post" tiggers a POST request to the same url with the body of the form control inputs -->
+    <% let antispamen = settings.antispam %>
+    <% if(antispamen == "0"){ %>
+      <%  antispamen = "Disabled" %>
+      <% }else if(antispamen == "1"){ %>
+        <% antispamen =  "Enabled" %>
+        <% }else{ %>
+          <%  antispamen = "Disabled" %>
+          <% } %>
+    <center>
+  <h1><strong>Anti Swear/Links</strong></h1>
+  <p>Only anti swear applies to members without admin permissions.</p>
+  <p><code>Currently anti swear/links is <%= antispamen %></code></p>
+  <% if(guild.me.hasPermission("MANAGE_MESSAGES")){ %>
+  <select class="select" name="antispam">
+    <option value="<%= settings.antispam %>"><%= antispamen %></option>
+    <% if(settings.antispam == "0"){ %>
+      <option value="1">Enable</option>
+      <% }else if(settings.antispam == "1"){ %>
+        <option value="0">Disable</option>
+        <% }else{ %>
+          <option value="1">Enable</option>
+          <% } %>
+  </select>
+  <% }else{ %>
+    <p style="color: red">Bot is missing manage messages permissions! re add then try again</p>
+    <% } %>
+      <% let antiraiden = settings.antiraid %>
+    <% if(antiraiden == "0"){ %>
+      <%  antiraiden = "Disabled" %>
+      <% }else if(antiraiden == "1"){ %>
+        <% antiraiden =  "Enabled" %>
+        <% }else{ %>
+          <%  antiraiden = "Disabled" %>
+          <% } %>
+   <center>
+<h1><strong>Anti raid</strong></h1>
+<p>Anti raid completely locks members from joining servers with an explanation message being sent out to the server members. </p>
+  <p><code>Currently Anti raid is <%= antiraiden %></code></p>
+    <% if(guild.me.hasPermission("KICK_MEMBERS")){ %>
+<select class="select" name="antiraid">
+    <option value="<%= settings.antiraid %>"><%= antiraiden %></option>
+    <% if(settings.antiraid == "0"){ %>
+      <option value="1">Enable</option>
+      <% }else if(settings.antiraid == "1"){ %>
+        <option value="0">Disable</option>
+        <% }else{ %>
+          <option value="1">Enable</option>
+          <% } %>
+</select>
+  <% }else{ %>
+  <p style="color: red">Bot is missing kick members permissions! re add then try again</p>
+  <% } %>
+<br>
+<br>
+<button style="width:170px" class="button"  type="submit">Update</button>
+
+  </form>
+      </center>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<%- include("partials/footer") %>
+</body>
+</html>
